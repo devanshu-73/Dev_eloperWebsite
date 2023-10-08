@@ -1,0 +1,65 @@
+{
+  "user": [
+    {
+      "username": "dev",
+      "email": "devanshuchauhan732000@gmail.com",
+      "phone": "4211233535",
+      "password": "1234",
+      "status": true,
+      "id": "1696324022810"
+    },
+    {
+      "username": "yash",
+      "email": "devanshuchauhan732000@gmail.com",
+      "phone": "421123124",
+      "password": "1234",
+      "id": "1696327401202",
+      "status": true
+    }
+  ],
+  "order": [
+    {
+      "name": "yash",
+      "email": "yash@gmail.com",
+      "checkInDate": "2023-10-04T05:30:00.000Z",
+      "checkOutDate": "2023-10-06T01:00:00.000Z",
+      "numberOfAdults": "2",
+      "numberOfChildren": "2",
+      "selectedRoom": "Junior Suite Room",
+      "id": 1
+    }
+  ],
+  "product": [
+    {
+      "roomType": "Junior Suite Room",
+      "price": 2000,
+      "id": 1
+    },
+    {
+      "roomType": "Executive Suite Room",
+      "price": 4000,
+      "id": 2
+    },
+    {
+      "roomType": "Super Deluxe Room",
+      "price": 7000,
+      "id": 3
+    }
+  ],
+  "contact": [
+    {
+      "name": "dev",
+      "email": "dev@gmail.com",
+      "subject": "mail",
+      "message": "gvsdfsdf",
+      "id": "1695285198894"
+    }
+  ],
+  "admin": [
+    {
+      "id": 1,
+      "name": "admin1",
+      "password": "1234"
+    }
+  ]
+}
