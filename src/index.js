@@ -9,13 +9,13 @@ import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyA4KRl-Ki8ZMQDx880WWHheEYS3OPeoyCU',
-  authDomain: 'developer-database-732.firebaseapp.com',
-  databaseURL: "https://developer-database-732-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: 'developer-database-732',
-  storageBucket: 'developer-database-732.appspot.com',
-  messagingSenderId: '232071454403',
-  appId: '1:232071454403:web:91d6d439252c386c858c76',
+  apiKey: "AIzaSyAzgMvy3t8pEubiJSfeAE28z0FCmNT6WXM",
+  authDomain: "devanshu-732.firebaseapp.com",
+  projectId: "devanshu-732",
+  storageBucket: "devanshu-732.appspot.com",
+  messagingSenderId: "521987978962",
+  appId: "1:521987978962:web:075d3493d043d269a2df0b",
+  measurementId: "G-B8Z5VPFGKH"
 };
 
 firebase.initializeApp(firebaseConfig);
