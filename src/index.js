@@ -11,7 +11,7 @@ const firebaseConfig = {
   projectId: 'developer-database-732',
   storageBucket: 'gs://developer-database-732.appspot.com',
   messagingSenderId: '232071454403',
-  appId: 'YOUR_APP_ID',
+  appId: '1:232071454403:web:91d6d439252c386c858c76',
 };
 
 firebase.initializeApp(firebaseConfig);
