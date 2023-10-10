@@ -41,7 +41,7 @@ function SignUp() {
     const onsubmit = async (e) => {
         e.preventDefault();
         if (validation()) {
-            const res = await axios.post(`http://localhost:3000/user`, data);
+            const res = await axios.post(`https://devsite-hotel-default-rtdb.asia-southeast1.firebasedatabase.app/user.json`, data);
             if (res.status == 201) {
                 alert('success');
                 setData({ ...data, username: "", email: "", phone: "", password: "" });

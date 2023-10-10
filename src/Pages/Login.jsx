@@ -19,7 +19,7 @@ function Login() {
         e.preventDefault();
 
         try {
-            const response = await fetch('http://localhost:3000/user');
+            const response = await fetch('https://devsite-hotel-default-rtdb.asia-southeast1.firebasedatabase.app/user.json');
             const userData = await response.json();
 
             const user = userData.find((user) => user.username === username && user.password === password);

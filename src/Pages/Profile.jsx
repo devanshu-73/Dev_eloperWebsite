@@ -16,7 +16,7 @@ function Profile() {
 
     const fetch = async () => {
         try {
-            const res = await axios.get(`http://localhost:3000/user/${localStorage.getItem('uid')}`);
+            const res = await axios.get(`https://devsite-hotel-default-rtdb.asia-southeast1.firebasedatabase.app/user.json/${localStorage.getItem('uid')}`);
             setFormValue(res.data);
         } catch (error) {
             console.error("Error fetching data:", error);
@@ -52,12 +52,12 @@ function Profile() {
     const editData = async (e) => {
         e.preventDefault();
         if (validation()) {
-            const res = await axios.patch(`http://localhost:3000/user/${formValue.id}`, formValue);
+            const res = await axios.patch(`https://devsite-hotel-default-rtdb.asia-southeast1.firebasedatabase.app/user.json/${formValue.id}`, formValue);
             if (res.status === 200) {
                 alert('Update success');
             }
         }
-    }     
+    }
 
     return (
         <div>
