@@ -1,4 +1,9 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import React from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import firebase from 'firebase/app'; // Import Firebase without '* as'
+import 'firebase/database';
+
 import Home from "./Pages/Home";
 import Footer from "./Comps/Footer"
 import About from "./Pages/About";
@@ -10,12 +15,26 @@ import Header from "./Comps/Header";
 import Booking from "./Pages/Booking";
 import OurTeam from "./Pages/OurTeam";
 import Testimonial from "./Pages/Testimonial";
-import { ToastContainer } from 'react-toastify';
 import SignUp from "./Pages/SignUp";
 import Login from './Pages/Login'
 import Profile from './Pages/Profile'
+
 import 'react-toastify/dist/ReactToastify.css'
-// import Header2 from './Comps/Header2';
+
+// Initialize Firebase with your Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyAnjIDq42KiDEUW5-TB5ro1WM9m3WIxK_M",
+  authDomain: "devsite-hotel.firebaseapp.com",
+  databaseURL: "https://devsite-hotel-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "devsite-hotel",
+  storageBucket: "devsite-hotel.appspot.com",
+  messagingSenderId: "719966390830",
+  appId: "1:719966390830:web:27283531e35539dcc42dbf",
+  measurementId: "G-RENF6XXVML"
+};
+firebase.initializeApp(firebaseConfig);
+
+
 function App() {
   return (
     <BrowserRouter>

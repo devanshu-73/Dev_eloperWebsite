@@ -1,53 +1,67 @@
-/* eslint-disable eqeqeq */
+/* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/no-redundant-roles */
-/* eslint-disable jsx-a11y/alt-text */
 import React, { useState } from 'react';
-import axios from 'axios';
-
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import firebase from 'firebase/app'; // Import Firebase without '* as'
+import 'firebase/database';
 
 function SignUp() {
+    const navigate = useNavigate();
     const [data, setData] = useState({
         username: "",
         email: "",
         phone: "",
         password: ""
-    })
-    const onchange = (e) => {
+    });
+
+    const handleChange = (e) => {
         setData({ ...data, id: new Date().getTime().toString(), [e.target.name]: e.target.value });
-        console.log(data);
     }
+
     function validation() {
-        var result = true;
-        if (data.username == "") {
-            alert('username is empty');
+        let result = true;
+        if (data.username === "") {
+            alert('Username is empty');
             result = false;
         }
-        if (data.email == "") {
-            alert('email is empty');
+        if (data.email === "") {
+            alert('Email is empty');
             result = false;
         }
 
-        if (data.phone == "") {
-            alert('phone is empty');
+        if (data.phone === "") {
+            alert('Phone is empty');
             result = false;
         }
-        if (data.password == "") {
-            alert('password is empty');
+        if (data.password === "") {
+            alert('Password is empty');
             result = false;
         }
         return result;
     }
-    const onsubmit = async (e) => {
+
+    const onSubmit = async (e) => {
         e.preventDefault();
-        if (validation()) {
-            const res = await axios.post(`https://devsite-hotel-default-rtdb.asia-southeast1.firebasedatabase.app/user.json`, data);
-            if (res.status == 201) {
-                alert('success');
-                setData({ ...data, username: "", email: "", phone: "", password: "" });
-            }
+
+        if (!validation()) {
+            return;
         }
-    }
+
+        try {
+            const db = firebase.database();
+            const usersRef = db.ref('users');
+            const newUserRef = usersRef.push(data);
+            const userId = newUserRef.key;
+
+            alert('Sign-up successful');
+            navigate('/profile');
+            setData({ username: '', email: '', phone: '', password: '' });
+        } catch (error) {
+            console.error('Error:', error);
+            // Handle errors as needed
+        }
+    };
+
     return (
         <div>
             <div className="container" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: 100 }}>
@@ -55,26 +69,24 @@ function SignUp() {
                     <div className="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-10 col-xs-offset-1">
                         <div className="panel-body">
                             <form role="form" style={{ width: "300px", marginTop: 20, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-                                <h5>Enter Details to SignUp</h5>
+                                <h5>Enter Details to Sign Up</h5>
                                 <div className="form-group input-group" style={{ padding: 10 }}>
                                     <span className="input-group-addon"><i className="fa fa-tag" /></span>
-                                    <input type="text" value={data.username} name='username' className="form-control" onChange={onchange} placeholder="User Name " />
+                                    <input type="text" value={data.username} name='username' className="form-control" onChange={handleChange} placeholder="User Name " />
                                 </div>
                                 <div className="form-group input-group" style={{ padding: 10 }}>
                                     <span className="input-group-addon"><i className="fa fa-tag" /></span>
-                                    <input type="email" value={data.email} className="form-control" name='email' onChange={onchange} placeholder="Your Email " />
+                                    <input type="email" value={data.email} className="form-control" name='email' onChange={handleChange} placeholder="Your Email " />
                                 </div>
                                 <div className="form-group input-group" style={{ padding: 10 }}>
                                     <span className="input-group-addon"><i className="fa fa-tag" /></span>
-                                    <input type="number" value={data.phone} className="form-control" name='phone' onChange={onchange} placeholder="Your phone " />
+                                    <input type="number" value={data.phone} className="form-control" name='phone' onChange={handleChange} placeholder="Your phone " />
                                 </div>
                                 <div className="form-group input-group" style={{ padding: 10 }}>
                                     <span className="input-group-addon"><i className="fa fa-lock" /></span>
-                                    <input type="password" value={data.password} className="form-control" name='password' onChange={onchange} placeholder="Your Password" />
+                                    <input type="password" value={data.password} className="form-control" name='password' onChange={handleChange} placeholder="Your Password" />
                                 </div>
-                                <Link to="/profile" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }} >
-                                    <button type='submit' onClick={onsubmit} className="btn btn-primary w-100 py-3">SignUp</button>
-                                </Link>
+                                <button type='submit' onClick={onSubmit} className="btn btn-primary w-100 py-3">Sign Up</button>
                             </form>
                         </div>
                     </div>
@@ -84,4 +96,4 @@ function SignUp() {
     )
 }
 
-export default SignUp
+export default SignUp;
