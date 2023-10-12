@@ -1,11 +1,12 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
-import firebase from 'firebase/app'; // Import Firebase without '* as'
+import firebase from 'firebase/app';
 import 'firebase/database';
+import 'firebase/auth'; // Import the Firebase Authentication service
 
 import Home from "./Pages/Home";
-import Footer from "./Comps/Footer"
+import Footer from "./Comps/Footer";
 import About from "./Pages/About";
 import Service from "./Pages/Service";
 import Room from "./Pages/Room";
@@ -16,10 +17,10 @@ import Booking from "./Pages/Booking";
 import OurTeam from "./Pages/OurTeam";
 import Testimonial from "./Pages/Testimonial";
 import SignUp from "./Pages/SignUp";
-import Login from './Pages/Login'
-import Profile from './Pages/Profile'
+import Login from './Pages/Login';
+import Profile from './Pages/Profile';
 
-import 'react-toastify/dist/ReactToastify.css'
+import 'react-toastify/dist/ReactToastify.css';
 
 // Initialize Firebase with your Firebase configuration
 const firebaseConfig = {
@@ -32,8 +33,9 @@ const firebaseConfig = {
   appId: "1:719966390830:web:27283531e35539dcc42dbf",
   measurementId: "G-RENF6XXVML"
 };
-firebase.initializeApp(firebaseConfig);
 
+
+firebase.initializeApp(firebaseConfig);
 
 function App() {
   return (
@@ -53,9 +55,7 @@ function App() {
         <Route exact path="/profile" element={<><Header /><Profile />  <Footer /></>}></Route>
         <Route exact path="/header2" element={<><Header /><h2 className="d-flex justify-content-center align-items-center mt-5">LogOut SuccessFully</h2><Footer /></>}></Route>
       </Routes>
-
     </BrowserRouter>
-
   );
 }
 

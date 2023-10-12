@@ -3,8 +3,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import firebase from 'firebase/app'; 
-import 'firebase/database';
+import * as firebase from 'firebase/app'; // Import Firebase as a namespace
+import 'firebase/auth'; // Import the Firebase authentication service
 
 function SignUp() {
     const navigate = useNavigate();
@@ -16,7 +16,7 @@ function SignUp() {
     });
 
     const handleChange = (e) => {
-        setData({ ...data, id: new Date().getTime().toString(), [e.target.name]: e.target.value });
+        setData({ ...data, [e.target.name]: e.target.value });
     }
 
     function validation() {
@@ -49,30 +49,24 @@ function SignUp() {
         }
 
         try {
-            const db = firebase.database();
-            const usersRef = db.ref('users');
-
-            // Create a new user object with unique data
-            const newUser = {
-                username: data.username,
-                email: data.email,
-                phone: data.phone,
-                password: data.password,
-            };
-
-            // Push the new user object to the database
-            const newUserRef = usersRef.push(newUser);
-            const userId = newUserRef.key;
-
-            toast.success('Sign-up successful');
-            navigate('/profile');
-            setData({ username: '', email: '', phone: '', password: '' });
+            // Create a new user with email and password
+            firebase.auth().createUserWithEmailAndPassword(data.email, data.password)
+                .then((userCredential) => {
+                    // User registration successful
+                    const user = userCredential.user;
+                    toast.success('Sign-up successful');
+                    navigate('/profile');
+                    setData({ username: '', email: '', phone: '', password: '' });
+                })
+                .catch((error) => {
+                    // Handle registration error
+                    toast.error('Registration error: ' + error.message);
+                });
         } catch (error) {
             console.error('Error:', error);
-            // Handle errors as needed
+            // Handle other errors as needed
         }
     };
-
 
     return (
         <div>
