@@ -38,7 +38,7 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
-const yourFirebaseDatabaseRef = ref(db, 'https://devsite-hotel-default-rtdb.asia-southeast1.firebasedatabase.app/users.json'); // Replace 'users' with your desired database location
+const yourFirebaseDatabaseRef = ref(db, 'https://devsite-hotel-default-rtdb.asia-southeast1.firebasedatabase.app/users'); // Replace 'users' with your desired database location
 
 function App() {
   return (

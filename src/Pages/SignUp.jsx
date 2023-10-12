@@ -69,7 +69,7 @@ function SignUp() {
                     };
 
                     // Set the user profile in the database under the user's unique ID
-                    set(ref(db, 'https://devsite-hotel-default-rtdb.asia-southeast1.firebasedatabase.app/users.json' + userId), userProfile)
+                    set(ref(db, 'https://devsite-hotel-default-rtdb.asia-southeast1.firebasedatabase.app/users' + userId), userProfile)
                         .then(() => {
                             // Data has been written to the database
                             navigate('/profile');
