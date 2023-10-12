@@ -3,7 +3,8 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
-import { getDatabase, ref, set } from 'firebase/database';
+import { getDatabase, ref, set, push } from 'firebase/database';
+
 
 function SignUp() {
     const navigate = useNavigate();
@@ -39,7 +40,6 @@ function SignUp() {
         }
         return result;
     }
-
     const onSubmit = async (e) => {
         e.preventDefault();
 
@@ -47,8 +47,7 @@ function SignUp() {
             return;
         }
 
-        // Initialize Firebase Authentication
-        const auth = getAuth();
+        const auth = getAuth(); // Initialize Firebase Authentication
 
         try {
             createUserWithEmailAndPassword(auth, data.email, data.password)
@@ -57,19 +56,20 @@ function SignUp() {
                     const user = userCredential.user;
                     toast.success('Sign-up successful');
 
-                    // Initialize Firebase Realtime Database and create a reference
-                    const db = getDatabase();
+                    // Store user data under 'users' path with a unique key
+                    const db = getDatabase(); // Initialize Firebase Realtime Database
+                    const usersRef = ref(db, 'users');
+                    const newUserRef = push(usersRef); // This generates a unique key for the user
 
                     // Create a user profile object to store in the database
-                    const userId = user.uid; // Unique user ID
                     const userProfile = {
                         username: data.username,
                         email: data.email,
                         phone: data.phone,
                     };
 
-                    // Set the user profile in the database under the user's unique ID
-                    set(ref(db, 'https://devsite-hotel-default-rtdb.asia-southeast1.firebasedatabase.app/users' + userId), userProfile)
+                    // Set the user profile in the database under the unique key
+                    set(newUserRef, userProfile)
                         .then(() => {
                             // Data has been written to the database
                             navigate('/profile');
@@ -86,7 +86,7 @@ function SignUp() {
         } catch (error) {
             console.error('Error:', error);
             // Handle other errors as needed
-        }
+        };
     };
 
     return (
