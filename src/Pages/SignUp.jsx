@@ -2,7 +2,8 @@
 /* eslint-disable jsx-a11y/no-redundant-roles */
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import firebase from 'firebase/app'; // Import Firebase without '* as'
+import { toast } from 'react-toastify';
+import firebase from 'firebase/app'; 
 import 'firebase/database';
 
 function SignUp() {
@@ -21,20 +22,20 @@ function SignUp() {
     function validation() {
         let result = true;
         if (data.username === "") {
-            alert('Username is empty');
+            toast.error('Username is empty');
             result = false;
         }
         if (data.email === "") {
-            alert('Email is empty');
+            toast.error('Email is empty');
             result = false;
         }
 
         if (data.phone === "") {
-            alert('Phone is empty');
+            toast.error('Phone is empty');
             result = false;
         }
         if (data.password === "") {
-            alert('Password is empty');
+            toast.error('Password is empty');
             result = false;
         }
         return result;
@@ -50,10 +51,20 @@ function SignUp() {
         try {
             const db = firebase.database();
             const usersRef = db.ref('users');
-            const newUserRef = usersRef.push(data);
+
+            // Create a new user object with unique data
+            const newUser = {
+                username: data.username,
+                email: data.email,
+                phone: data.phone,
+                password: data.password,
+            };
+
+            // Push the new user object to the database
+            const newUserRef = usersRef.push(newUser);
             const userId = newUserRef.key;
 
-            alert('Sign-up successful');
+            toast.success('Sign-up successful');
             navigate('/profile');
             setData({ username: '', email: '', phone: '', password: '' });
         } catch (error) {
@@ -61,6 +72,7 @@ function SignUp() {
             // Handle errors as needed
         }
     };
+
 
     return (
         <div>
