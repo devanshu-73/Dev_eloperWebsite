@@ -1,40 +1,39 @@
-/* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/no-redundant-roles */
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import * as firebase from 'firebase/app'; // Import Firebase as a namespace
-import 'firebase/auth'; // Import the Firebase authentication service
+import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+import { getDatabase, ref, set } from 'firebase/database';
 
 function SignUp() {
     const navigate = useNavigate();
     const [data, setData] = useState({
-        username: "",
-        email: "",
-        phone: "",
-        password: ""
+        username: '',
+        email: '',
+        phone: '',
+        password: '',
     });
 
     const handleChange = (e) => {
         setData({ ...data, [e.target.name]: e.target.value });
     }
 
-    function validation() {
+    const validation = () => {
         let result = true;
-        if (data.username === "") {
+        if (data.username === '') {
             toast.error('Username is empty');
             result = false;
         }
-        if (data.email === "") {
+        if (data.email === '') {
             toast.error('Email is empty');
             result = false;
         }
 
-        if (data.phone === "") {
+        if (data.phone === '') {
             toast.error('Phone is empty');
             result = false;
         }
-        if (data.password === "") {
+        if (data.password === '') {
             toast.error('Password is empty');
             result = false;
         }
@@ -48,15 +47,37 @@ function SignUp() {
             return;
         }
 
+        // Initialize Firebase Authentication
+        const auth = getAuth();
+
         try {
-            // Create a new user with email and password
-            firebase.auth().createUserWithEmailAndPassword(data.email, data.password)
+            createUserWithEmailAndPassword(auth, data.email, data.password)
                 .then((userCredential) => {
                     // User registration successful
                     const user = userCredential.user;
                     toast.success('Sign-up successful');
-                    navigate('/profile');
-                    setData({ username: '', email: '', phone: '', password: '' });
+
+                    // Initialize Firebase Realtime Database and create a reference
+                    const db = getDatabase();
+
+                    // Create a user profile object to store in the database
+                    const userId = user.uid; // Unique user ID
+                    const userProfile = {
+                        username: data.username,
+                        email: data.email,
+                        phone: data.phone,
+                    };
+
+                    // Set the user profile in the database under the user's unique ID
+                    set(ref(db, 'https://devsite-hotel-default-rtdb.asia-southeast1.firebasedatabase.app/users.json' + userId), userProfile)
+                        .then(() => {
+                            // Data has been written to the database
+                            navigate('/profile');
+                            setData({ username: '', email: '', phone: '', password: '' });
+                        })
+                        .catch((error) => {
+                            console.error('Error writing to the database:', error);
+                        });
                 })
                 .catch((error) => {
                     // Handle registration error
@@ -71,7 +92,7 @@ function SignUp() {
     return (
         <div>
             <div className="container" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: 100 }}>
-                <div className="row " >
+                <div className="row ">
                     <div className="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-10 col-xs-offset-1">
                         <div className="panel-body">
                             <form role="form" style={{ width: "300px", marginTop: 20, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
