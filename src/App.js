@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
-import firebase from 'firebase/app';
+import * as firebase from 'firebase/app'; // Import Firebase as a namespace
 import 'firebase/database';
 import 'firebase/auth'; // Import the Firebase Authentication service
 
