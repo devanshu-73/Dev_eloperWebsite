@@ -1,9 +1,9 @@
+/* eslint-disable no-unused-vars */
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
-import * as firebase from 'firebase/app'; // Import Firebase as a namespace
-import 'firebase/database';
-import 'firebase/auth'; // Import the Firebase Authentication service
+import { initializeApp } from 'firebase/app';
+import { getDatabase } from 'firebase/database';
 
 import Home from "./Pages/Home";
 import Footer from "./Comps/Footer";
@@ -34,8 +34,8 @@ const firebaseConfig = {
   measurementId: "G-RENF6XXVML"
 };
 
-
-firebase.initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig);
+const database = getDatabase(app);
 
 function App() {
   return (
@@ -53,7 +53,7 @@ function App() {
         <Route exact path="/signup" element={<> <Header /> <SignUp />   <Footer /></>}></Route>
         <Route exact path="/login" element={<>  <Header /><Login />  <Footer /> </>}></Route>
         <Route exact path="/profile" element={<><Header /><Profile />  <Footer /></>}></Route>
-        <Route exact path="/header2" element={<><Header /><h2 className="d-flex justify-content-center align-items-center mt-5">LogOut SuccessFully</h2><Footer /></>}></Route>
+        <Route exact path="/header2" element={<><Header /><h2 className="d-flex justify-content-center align-items-center mt-5">LogOut Successfully</h2><Footer /></>}></Route>
       </Routes>
     </BrowserRouter>
   );
