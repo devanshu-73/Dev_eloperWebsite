@@ -2,10 +2,8 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
-
 import { initializeApp } from 'firebase/app';
 import { getDatabase, ref } from 'firebase/database';
-
 import Home from "./Pages/Home";
 import Footer from "./Comps/Footer";
 import About from "./Pages/About";
@@ -20,7 +18,6 @@ import Testimonial from "./Pages/Testimonial";
 import SignUp from "./Pages/SignUp";
 import Login from './Pages/Login';
 import Profile from './Pages/Profile';
-
 import 'react-toastify/dist/ReactToastify.css';
 
 // Initialize Firebase with your Firebase configuration
@@ -38,7 +35,7 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
-const yourFirebaseDatabaseRef = ref(db, 'users'); // Replace 'users' with your desired database location
+const yourFirebaseDatabaseRef = ref(db, 'users');
 
 function App() {
   return (
