@@ -2,9 +2,7 @@
 /* eslint-disable no-undef */
 import React from 'react'
 import { NavLink, Link } from 'react-router-dom'
-// import { NavLink, Link, useNavigate } from 'react-router-dom'
 export default function Header() {
-    // const navigate = useNavigate();
     const logout = () => {
         alert('logout');
         localStorage.clear();
@@ -12,7 +10,6 @@ export default function Header() {
     return (
         <>
             <div>
-
                 {/* Header Start */}
                 <div className="container-fluid bg-dark px-0">
                     <div className="row gx-0">
@@ -95,7 +92,6 @@ export default function Header() {
                 </div>
                 {/* Header-End */}
             </div>
-
         </>
     )
 }

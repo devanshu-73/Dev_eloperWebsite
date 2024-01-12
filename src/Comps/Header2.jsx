@@ -1,11 +1,9 @@
 import React from 'react'
 import { NavLink, Link } from 'react-router-dom'
-// import { NavLink, Link, useNavigate } from 'react-router-dom'
 export default function Header2() {
     return (
         <>
             <div>
-
                 {/* Header Start */}
                 <div className="container-fluid bg-dark px-0">
                     <div className="row gx-0">
@@ -69,7 +67,6 @@ export default function Header2() {
                 </div>
                 {/* Header-End */}
             </div>
-
         </>
     )
 }
